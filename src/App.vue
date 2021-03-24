@@ -54,32 +54,19 @@
         </select>
       </div>
     </div>
-    <div class="weather">
-      <div v-for="(item, index) in watherData.list" :key="index">
-        <div class="weather__card">
-          <div class="date">
-            {{ capitalizeText(getDateFormat(item.dt_txt)) }}
-          </div>
-          <div class="temp">
-            <div>{{ Math.round(item.main.temp) }} &#8451;</div>
-          </div>
-          <div class="weather__description">
-            {{ capitalizeText(item.weather[0].description) }}
-          </div>
-          <div class="weather__image">
-            <img :src="getWatherIcon(item.weather[0].icon)" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Weather :watherData="watherData.list" :lang="langModel" />
   </div>
 </template>
 
 <script>
-import moment from 'moment'
 import fetchWeatherData from './api/api'
+import { capitalizeText } from './utils'
+import Weather from './components/weather/Weather'
 export default {
   name: 'App',
+  components: {
+    Weather
+  },
   data() {
     return {
       weatherTypeModel: 'forecast',
@@ -119,6 +106,7 @@ export default {
         lang: this.langModel
       }
       this.watherData = await fetchWeatherData(params)
+      console.log(this.watherData)
     },
     changeInputCity() {
       if (this.cityModel.length) {
@@ -138,16 +126,7 @@ export default {
     changeLanguage() {
       this.fetchWeather()
     },
-    getWatherIcon(code) {
-      return `http://openweathermap.org/img/wn/${code}@2x.png`
-    },
-    getDateFormat(date) {
-      moment.locale(this.langModel)
-      return moment(date).format('dddd, DD MMMM - HH:mm')
-    },
-    capitalizeText(text) {
-      return text.charAt(0).toUpperCase() + text.slice(1)
-    }
+    capitalizeText: capitalizeText
   }
 }
 </script>
