@@ -38,7 +38,12 @@
       </div>
       <div class="form-group">
         <label for="lang">Language</label>
-        <select class="form-control" id="lang" v-model="langModel" @change="changeLanguage">
+        <select
+          class="form-control"
+          id="lang"
+          v-model="langModel"
+          @change="changeLanguage"
+        >
           <option
             v-for="(lang, index) in langList"
             :key="lang.value + index"
@@ -56,9 +61,7 @@
             {{ capitalizeText(getDateFormat(item.dt_txt)) }}
           </div>
           <div class="temp">
-            <div>
-              {{ item.main.temp_max }} &#8451;
-            </div>
+            <div>{{ Math.round(item.main.temp) }} &#8451;</div>
           </div>
           <div class="weather__description">
             {{ capitalizeText(item.weather[0].description) }}
@@ -140,7 +143,7 @@ export default {
     },
     getDateFormat(date) {
       moment.locale(this.langModel)
-      return moment(date).format('dddd DD MMMM - HH:mm')
+      return moment(date).format('dddd, DD MMMM - HH:mm')
     },
     capitalizeText(text) {
       return text.charAt(0).toUpperCase() + text.slice(1)
