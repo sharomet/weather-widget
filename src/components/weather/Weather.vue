@@ -12,12 +12,13 @@
 </template>
 
 <script>
+import './weather.scss'
 import moment from 'moment'
 import { capitalizeText } from '@/utils'
 import WeatherCard from './WeatherCard'
 export default {
   name: 'Weather',
-  props: ['watherData', 'lang'],
+  props: ['watherData'],
   components: {
     WeatherCard
   },
@@ -26,7 +27,6 @@ export default {
       return `http://openweathermap.org/img/wn/${code}@2x.png`
     },
     getDateFormat(date) {
-      moment.locale(this.lang)
       return moment(date).format('dddd, DD MMMM - HH:mm')
     },
     capitalizeText: capitalizeText

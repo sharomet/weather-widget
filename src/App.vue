@@ -54,12 +54,13 @@
         </select>
       </div>
     </div>
-    <Weather :watherData="watherData.list" :lang="langModel" />
+    <Weather :watherData="watherData.list" />
   </div>
 </template>
 
 <script>
 import fetchWeatherData from './api/api'
+import moment from 'moment'
 import { capitalizeText } from './utils'
 import Weather from './components/weather/Weather'
 export default {
@@ -124,6 +125,7 @@ export default {
       this.showCityList = false
     },
     changeLanguage() {
+      moment.locale(this.langModel)
       this.fetchWeather()
     },
     capitalizeText: capitalizeText
