@@ -1,4 +1,4 @@
-# vue-api
+# Vue Weather Api Widget
 
 ## Project setup
 ```
